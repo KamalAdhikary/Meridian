@@ -1,0 +1,68 @@
+.mat-select {
+    border-bottom: 1px solid black;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+input[type=date],
+input[type=datetime-local],
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search-md],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+textarea.materialize-textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    border-radius: 0;
+    outline: 0;
+    height: 1.5rem;
+    font-size: 1rem;
+    margin: 0 0 -7px;
+    padding: 0;
+    box-shadow: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    transition: all .3s;
+}
+
+.mat-form-field-prefix .mat-icon-button,
+.mat-form-field-suffix .mat-icon-button {
+    height: 2.5em;
+    width: 2.5em;
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+}
+
+.btn-gateway {
+    width: 84px;
+    height: 30px;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 411px) {
+    .oreder-header {
+        font-size: 12px !important;
+    }
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}

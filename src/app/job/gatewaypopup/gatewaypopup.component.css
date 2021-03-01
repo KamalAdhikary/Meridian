@@ -1,0 +1,26 @@
+.header-popup{
+    padding-bottom: 20px;background-color: lightgrey;
+}
+
+::ng-deep.mat-dialog-container {
+    overflow-x: hidden;
+}
+
+::ng-deep input[type=text] {
+    height: 2rem;
+}
+
+.blah{
+    margin-top: 0px;
+}
+
+@media only screen and (max-width: 767px) {
+    .xbutton {
+        margin-top: -22px;
+    }
+}
+
+   
+
+ 
+    

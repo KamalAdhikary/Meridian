@@ -1,0 +1,213 @@
+<div class="row">
+    <div style="width:100%">
+        <div id="collapseAction" style="margin-top: -24px;" *ngIf="gatewayTypeId == 86 ? true : false">
+            <div class="row" style="padding-bottom: 12px; margin-bottom: 10px; padding-top:12px;background-color: lightgrey;">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <strong>Shipping Information</strong>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 xbutton">
+                    <!-- <strong style="float: right;cursor: pointer;" (click)="closeWindow()">X</strong> -->
+                    <i class="far fa-times-circle" style="float: right;cursor: pointer; font-size: 20px;" (click)="closeWindow()"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-sm-3 col-6 action">
+                            <h4> <strong>Action</strong></h4>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <span> <input type="text" aria-label="Number" readonly matInput [(ngModel)]="actionText"
+                        placeholder="Action Type"></span>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <h4> <strong>Sub-Action</strong></h4>
+                        </div>
+                        <div class="col-sm-3 col-6 sub-action">
+                            <input type="text" aria-label="Number" readonly matInput [(ngModel)]="subActionText" placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="center">
+                        <mat-progress-spinner mode="indeterminate" color="blue" [diameter]="50" *ngIf="enableSpinner">
+                        </mat-progress-spinner>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-3 col-6 name">
+                                <h4> <strong>Name</strong></h4>
+                            </div>
+                            <div class="col-sm-3 col-6 ">
+                                <input type="text" aria-label="Name" readonly matInput [(ngModel)]="nameText">
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <h4> <strong>Email</strong></h4>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <input type="text" aria-label="Number" readonly matInput [(ngModel)]="emailText">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-6 phone">
+                                <h4> <strong>Phone</strong></h4>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <input type="text" aria-label="Name" readonly matInput [(ngModel)]="phoneText">
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <h4> <strong>Preferred Method</strong></h4>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <input type="text" aria-label="Number" readonly matInput [(ngModel)]="contactMethodText">
+                            </div>
+                        </div>
+                        <div *ngIf="!isNonPOC">
+                            <div class="row">
+                                <div class="col-sm-3" *ngIf="scheduleArrivalPlaceholder != ''">
+                                    <h4> <strong>{{scheduleArrivalPlaceholder}}</strong></h4>
+                                </div>
+                                <div class="col-sm-3" *ngIf="scheduleArrivalPlaceholder != ''">
+                                    <input [ngModel]="defaultLatestDDPCurrent" placeholder="{{defaultLatestDDPCurrent}}" type="text">
+                                </div>
+                                <div class="col-sm-3" *ngIf="scheduleArrivalPlaceholder === 'Schedule Date'">
+                                    <h4> <strong>Reschedule Date</strong></h4>
+                                </div>
+                                <div class="col-sm-3" *ngIf="scheduleArrivalPlaceholder === 'Schedule Date'">
+                                    <input [ngModel]="defaultLatestDDPNew " type="text" placeholder="Reschedule Date">
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="isDeliveryWindow">
+                                <div class="col-sm-3">
+                                    <h4> <strong>Earliest Time</strong></h4>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" matInput placeholder="Earliest Time" readonly [(ngModel)]="time">
+                                </div>
+                                <div class="col-sm-3">
+                                    <h4> <strong>Latest Time</strong></h4>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" matInput placeholder="Latest Time" aria-label="default time" readonly [(ngModel)]="time">
+                                </div>
+                            </div>
+                            <div *ngIf="isDropDownPanel">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h4> <strong>Cargo</strong></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" aria-label="Number" readonly matInput [(ngModel)]="cargoText" placeholder="Cargo">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h4> <strong>Install Status</strong></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" aria-label="Number" matInput readonly [(ngModel)]="statusText" placeholder="Install Status">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h4> <strong>{{exceptionReasonCodePlaceholder}}</strong></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" aria-label="Number" readonly matInput [(ngModel)]="exceptionText" placeholder="{{exceptionReasonCodePlaceholder}}">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h4> <strong>Cargo Quantity</strong></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="number" aria-label="Number" readonly matInput [(ngModel)]="cargoQuantityText" placeholder="Cargo Quantity">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-6 notes">
+                                        <h4> <strong>Additional Comment</strong></h4>
+                                    </div>
+                                    <div class="col-sm-9 col-9">
+                                        <textarea class="materialize-textarea" readonly type="textarea" aria-label="Number" matInput rows="3" cols="60" [(ngModel)]="addtionalCommentText" placeholder="Additional Comment"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-6 notes">
+                                <h4> <strong>Notes</strong></h4>
+                            </div>
+                            <div class="col-sm-9 col-9">
+                                <textarea class="materialize-textarea" readonly type="textarea" aria-label="Number" rows="3" cols="60" matInput [(ngModel)]="notesText" placeholder="Notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="collapseAction" style="margin-top: -24px;" *ngIf="gatewayTypeId == 85 ? true : false">
+            <div class="row" style="padding-bottom: 12px; margin-bottom: 10px; padding-top:12px;background-color: lightgrey;">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <strong>Shipping Information</strong>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 xbutton">
+                    <i class="far fa-times-circle" style="float: right;cursor: pointer; font-size: 20px;" (click)="closeWindow()"></i>
+                </div>
+            </div>
+            <div class="center">
+                <mat-progress-spinner mode="indeterminate" color="blue" [diameter]="50" *ngIf="enableSpinner">
+                </mat-progress-spinner>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-sm-3 col-6 ">
+                            <h4> <strong>Code</strong></h4>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <span> <input type="text" readonly matInput [(ngModel)]="codeText"
+                        placeholder="Action Type"></span>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <h4> <strong>Title</strong></h4>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <input type="text" aria-label="Number" readonly matInput [(ngModel)]="titleText" placeholder="Title">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-3 col-6">
+                                <h4> <strong>ACD</strong></h4>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <input type="text" aria-label="Name" readonly matInput [(ngModel)]="ACD">
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <h4> <strong>Completed</strong></h4>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <mat-checkbox class="example-margin" [disabled]="true" [(ngModel)]="checked">Completed
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-3">
+                                <h4> <strong>Notes</strong></h4>
+                            </div>
+                            <div class="col-sm-9 col-9">
+                                <textarea class="materialize-textarea" readonly type="textarea" aria-label="Number" rows="3" cols="60" matInput [(ngModel)]="notesText" placeholder="Notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="text-align: center;">
+    </div>
+</div>

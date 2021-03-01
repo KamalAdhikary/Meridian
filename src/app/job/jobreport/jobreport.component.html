@@ -1,0 +1,522 @@
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+        <b>Job Report</b>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+        <div class="panel panel-default order-detail-panel panel-boarder col-12">
+            <div class="panel-body ">
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-3">
+                        <ng-select [items]="reportTypeList" bindLabel="SysRefName" placeholder="Select Report Type" appendTo="body" [(ngModel)]="selectedReportTypes" (change)="getReport($event)">
+                            <ng-option [value]="item.SysRefId" *ngFor="let item of reportTypeList">
+                                {{item.SysRefName}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3" style="text-align:right;" *ngIf="isPriceReport || isCostReport">
+                        <button style="background-color: #746969;border-color: #746969;" type="button" (click)="searchFilter()" class="float-right btn btn-success btn-action btn-add-aciton">
+                              Generate Report
+                          </button>
+                    </div>
+                    <div class="col-3" *ngIf="!isPriceReport && !isCostReport">
+                        <ng-select [items]="customerList" bindLabel="CustTitle" placeholder="Select Customer" appendTo="body" [(ngModel)]="selectedCustomers" (change)="getCustomer($event)">
+                        </ng-select>
+                    </div>
+                    <div class="col-3" *ngIf="!isPriceReport && !isCostReport">
+                        <ng-select [items]="programList" bindLabel="ProgramTitle" placeholder="Select Programs" appendTo="body" multiple="true" [(ngModel)]="selectedPrograms">
+                            <ng-option [value]="item.ProgramId" *ngFor="let item of programList">
+                                {{item.ProgramTitle}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3" *ngIf="!isPriceReport && !isCostReport">
+                        <ng-select [items]="originList" bindLabel="Origin" placeholder="Select Origin" appendTo="body" multiple="true" [(ngModel)]="selectedOrigins">
+                            <ng-option [value]="item.Origin" *ngFor="let item of programList">
+                                {{item.Origin}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;" *ngIf="!isPriceReport && !isCostReport">
+                    <div class="col-3">
+                        <ng-select [items]="destinationList" bindLabel="Destination" placeholder="Select Destination" appendTo="body" multiple="true" [(ngModel)]="selectedDestinations">
+                            <ng-option [value]="item.Destination" *ngFor="let item of destinationList">
+                                {{item.Destination}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="brandList" bindLabel="Brand" placeholder="Select Brands" appendTo="body" multiple="true" [(ngModel)]="selectedBrands">
+                            <ng-option [value]="item.Brand" *ngFor="let item of brandList">
+                                {{item.Brand}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="gatewayStatusList" bindLabel="GatewayStatus" placeholder="Select Gateway Title" appendTo="body" multiple="true" [(ngModel)]="selectedGatewayStatuses">
+                            <ng-option [value]="item.GatewayStatus" *ngFor="let item of gatewayStatusList">
+                                {{item.GatewayStatus}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="serviceModeList" bindLabel="ServiceMode" placeholder="Select Service Mode" appendTo="body" multiple="true" [(ngModel)]="selectedServiceModes">
+                            <ng-option [value]="item.ServiceMode" *ngFor="let item of serviceModeList">
+                                {{item.ServiceMode}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;" *ngIf="!isPriceReport && !isCostReport">
+                    <div class="col-3">
+                        <ng-select [items]="productTypeList" bindLabel="ProductType" placeholder="Select Product Type" appendTo="body" [(ngModel)]="selectedProductTypes">
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="scheduledNameList" bindLabel="ScheduledName" placeholder="Scheduled" appendTo="body" [(ngModel)]="selectedScheduleds">
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="orderTypeList" bindLabel="OrderTypeName" placeholder="Order Type" appendTo="body" [(ngModel)]="selectedOrderTypes">
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="jobChannelList" bindLabel="JobChannel" placeholder="Select Job Channel" appendTo="body" multiple="true" [(ngModel)]="selectedJobChannels">
+                            <ng-option [value]="item.JobChannel" *ngFor="let item of jobChannelList">
+                                {{item.JobChannel}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;" *ngIf="!isPriceReport && !isCostReport">
+                    <div class="col-3">
+                        <ng-select [items]="JobStatusIdNameList" bindLabel="JobStatusIdName" placeholder="Status" appendTo="body" [(ngModel)]="selectedJobStatusIdNames">
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <ng-select [items]="DateTypeNameList" bindLabel="DateTypeName" placeholder="Date References" appendTo="body" [(ngModel)]="selectedDateTypeNames">
+                        </ng-select>
+                    </div>
+                    <div class="col-3">
+                        <div class="row" style="width: 100%;">
+                            <div class="col-10">
+                                <input type="text" matInput [ngxMatDatetimePicker]="picker" [(ngModel)]="startDate" placeholder="Start Date">
+                            </div>
+                            <div class="col-2">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker [hideTime]="true"></ngx-mat-datetime-picker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row" style="width: 100%;">
+                            <div class="col-10">
+                                <input type="text" matInput [ngxMatDatetimePicker]="picker1" [(ngModel)]="endDate" placeholder="End Date">
+                            </div>
+                            <div class="col-2">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker1 [hideTime]="true"></ngx-mat-datetime-picker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 0px;">
+                    <div class="col-3" *ngIf="isManifestReport && !isPriceReport && !isCostReport">
+                        <ng-select [items]="packagingCodeList" bindLabel="PackagingCode" placeholder="Select Packaging Code" appendTo="body" [(ngModel)]="selectedPackagingCodes">
+                            <ng-option [value]="item.PackagingCode" *ngFor="let item of packagingCodeList">
+                                {{item.PackagingCode}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3" *ngIf="isManifestReport  && !isPriceReport && !isCostReport">
+                        <ng-select [items]="cargoTitleList" bindLabel="CargoTitle" placeholder="Select Cargo Title" appendTo="body" [(ngModel)]="selectedCargoTitles">
+                            <ng-option [value]="item.CargoTitle" *ngFor="let item of cargoTitleList">
+                                {{item.CargoTitle}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-3" *ngIf="!isPriceReport && !isCostReport">
+                        <input matInput placeholder="Search" type="text" [(ngModel)]="searchText">
+                    </div>
+                    <div class="col-3" style="text-align:right;" *ngIf="!isPriceReport && !isCostReport">
+                        <button style="background-color: #746969;border-color: #746969;" type="button" (click)="searchFilter()" class="float-right btn btn-success btn-action btn-add-aciton">
+                            Generate Report
+                        </button>
+                    </div>
+                    <div class="center">
+                        <mat-progress-spinner mode="indeterminate" color="blue" [diameter]="50" *ngIf="enableSpinner">
+                        </mat-progress-spinner>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-panel-description>
+</mat-expansion-panel>
+
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+        <div class="col-6">
+            <b>Report Result</b>
+        </div>
+        <div class="col-6">
+            <button style="background-color: #746969;border-color: #746969;" type="button" (click)="download()" class="float-right btn btn-success btn-action btn-add-aciton">
+            export to excel
+        </button>
+        </div>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+        <div class="panel panel-default order-detail-panel panel-boarder col-12">
+            <div class="panel-body ">
+                <div class="grid-height" style="overflow-x: scroll;" *ngIf="isManifestReport || isJobAdvanceReport">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <ng-container matColumnDef="JobCustomerSalesOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contract# </th>
+                            <td mat-cell *matCellDef="let element ">
+                                <span class="btn-link " style="cursor: pointer;" (click)="redirectToDetails(element.Id)">
+                          {{ element.JobCustomerSalesOrder }}
+                          </span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Id" *ngIf="activeUserObj != null && activeUserObj.IsSysAdmin != null && activeUserObj.IsSysAdmin">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Id</th>
+                            <td mat-cell *matCellDef="let element "> {{element.Id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobSiteCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Site Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobSiteCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobCustomerPurchaseOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Customer Purchase Order</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobCustomerPurchaseOrder}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobCarrierContract">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Carrier Contract</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobCarrierContract}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobGatewayStatus">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Gateway Status</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobGatewayStatus}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="StatusId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.StatusId == 1 ? 'Active' : element.StatusId == 2 ? 'Inactive' : 'Archive'}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOC">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOC}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOCPhone">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC Phone</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOCPhone}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOCEmail">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC Email</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOCEmail}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySiteName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site Name</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySiteName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryStreetAddress">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Street Address</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryStreetAddress}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryStreetAddress2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Street Address 2</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryStreetAddress2}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryCity">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery City</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryCity}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryState">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery State</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryState}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryPostalCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Postal Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryPostalCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryDateTimePlanned">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Date Planned</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobDeliveryDateTimePlanned | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobOriginDateTimePlanned">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date Planned</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobOriginDateTimePlanned | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryDateTimeActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Date Time Actual</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobDeliveryDateTimeActual | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobOriginDateTimeActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date Time Actual</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobOriginDateTimeActual | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobSellerSiteName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Seller Site Name</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobSellerSiteName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOCPhone2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC Phone 2</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOCPhone2}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PlantIDCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Plant ID Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PlantIDCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobQtyActual" *ngIf="!isJobAdvanceReport">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Qty Actual</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobQtyActual}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobPartsActual" *ngIf="!isJobAdvanceReport">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Parts Actual</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobPartsActual}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobTotalCubes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Total Cubes</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobTotalCubes}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobServiceMode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Service Mode</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobServiceMode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobBOL">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job BOL</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobBOL}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PackagingCode" *ngIf="!isJobAdvanceReport">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Packaging Type</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PackagingCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoPartCode" *ngIf="!isJobAdvanceReport">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Part Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoPartCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CargoTitle" *ngIf="!isJobAdvanceReport">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cargo Title</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CargoTitle}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobTotalWeight">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobTotalWeight}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobServiceActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Service Actual</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobServiceActual}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobMileage">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Mileage</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobMileage}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobOrderedDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Ordered Date</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobOrderedDate | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobIsSchedule">
+                            <th mat-header-cell *matHeaderCellDef>Job Is Schedule</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-checkbox [disabled]="true" [(ngModel)]="element.JobIsSchedule"></mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="reportColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: reportColumns; "></tr>
+                    </table>
+                </div>
+                <div class="grid-height" style="overflow-x: scroll;" *ngIf="isCostReport || isPriceReport">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <ng-container matColumnDef="JobDeliveryDateTimePlanned">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Date Planned</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobDeliveryDateTimePlanned | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="Id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Id</th>
+                            <td mat-cell *matCellDef="let element "> {{element.Id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobOriginDateTimePlanned">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date Planned</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobOriginDateTimePlanned | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobGatewayStatus">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Gateway Status</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobGatewayStatus}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobSiteCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Site Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobSiteCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobCustomerSalesOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contract# </th>
+                            <td mat-cell *matCellDef="let element ">
+                                <span class="btn-link " style="cursor: pointer;" (click)="redirectToDetails(element.Id)">
+                                {{ element.JobCustomerSalesOrder }}
+                                </span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PlantIDCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Plant ID Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PlantIDCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobQtyActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Qty Actual</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobQtyActual}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobPartsActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Parts Actual</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobPartsActual}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobTotalCubes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Total Cubes</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobTotalCubes}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="RateChargeCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate Charge Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element?.RateChargeCode}} </td>
+                        </ng-container> -->
+                        <!-- <ng-container matColumnDef="RateTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate Title</th>
+                            <td mat-cell *matCellDef="let element "> {{element.RateTitle}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="RateAmount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate Amount</th>
+                            <td mat-cell *matCellDef="let element "> {{element.RateAmount}} </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="JobServiceMode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Service Mode</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobServiceMode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobCustomerPurchaseOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Customer Purchase Order</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobCustomerPurchaseOrder}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobCarrierContract">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Carrier Contract</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobCarrierContract}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="StatusId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.StatusId == 1 ? 'Active' : element.StatusId == 2 ? 'Inactive' : 'Archive'}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOC">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOC}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOCPhone">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC Phone</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOCPhone}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOCPhone2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC Phone 2</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOCPhone2}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySitePOCEmail">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site POC Email</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySitePOCEmail}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobOriginSiteName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Origin Site Name</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobOriginSiteName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliverySiteName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Site Name</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliverySiteName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryStreetAddress">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Street Address</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryStreetAddress}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryStreetAddress2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Street Address 2</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryStreetAddress2}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryCity">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery City</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryCity}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryState">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery State</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryState}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryPostalCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Delivery Postal Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobDeliveryPostalCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobDeliveryDateTimeActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Date Time Actual</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobDeliveryDateTimeActual | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobOriginDateTimeActual">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date Time Actual</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobOriginDateTimeActual | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <ng-container matColumnDef="JobOrderedDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Ordered Date</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.JobOrderedDate | date: 'MM/dd/yyyy'}}
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="specialReportColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: specialReportColumns; "></tr>
+                    </table>
+                </div>
+                <div class="grid-height" style="overflow-x: scroll;" *ngIf="isOSDReport">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <ng-container matColumnDef="Id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Id</th>
+                            <td mat-cell *matCellDef="let element "> {{element.Id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobCustomerSalesOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contract# </th>
+                            <td mat-cell *matCellDef="let element ">
+                                <span class="btn-link " style="cursor: pointer;" (click)="redirectToDetails(element.Id)">
+                            {{ element.JobCustomerSalesOrder }}
+                            </span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoPartCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Part Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoPartCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoSerialNumber">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Serial Number</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoSerialNumber}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ExceptionType">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Exception Type</th>
+                            <td mat-cell *matCellDef="let element "> {{element.ExceptionType}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="JobCustomerSalesOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Number </th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{ element.JobCustomerSalesOrder }}
+                            </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="JobManifestNo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Manifest No</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobManifestNo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="JobSiteCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Site Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.JobSiteCode}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="osdReportColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: osdReportColumns; "></tr>
+                    </table>
+                </div>
+                <mat-paginator [length]="TotalCount" [pageSize]="10" [pageSizeOptions]="[5,10,20,30,50,100] " showFirstLastButtons (page)="PageEvents($event)"></mat-paginator>
+            </div>
+        </div>
+    </mat-panel-description>
+</mat-expansion-panel>

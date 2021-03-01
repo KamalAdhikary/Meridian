@@ -1,0 +1,184 @@
+<form [formGroup]='actionForm'>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6" style="padding-left: 0px;">
+            <span class="material-icons" (click)="cancelAction()" style="display: inline-flex;vertical-align: middle;padding-left: 15px;padding-top: 15px;font-size: 30px;cursor: pointer;font-weight: bold;">arrow_back</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6 ">
+            <p class="oreder-header" style="padding-right: 15px;float: right;padding-top: 15px; font-weight: bold; padding-bottom: 0px;">
+                ADD ACTION
+            </p>
+        </div>
+    </div>
+    <div id="collapseAction" [ngbCollapse]="isCollapsed" style="margin-top: -20px;">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field class="example-full-width">
+                            <input type="text" aria-label="Number" matInput formControlName="selectedAction" [matAutocomplete]="auto" [(ngModel)]="actionText" placeholder="Action Type">
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onActionChange($event.option.value)'>
+                                <mat-option *ngFor='let option of filteredAction | async' [value]="option.GatewayCode">
+                                    {{option.GatewayCode}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field class="example-full-width">
+                            <input type="text" aria-label="Number" matInput formControlName="selectedSubAction" [matAutocomplete]="auto1" [(ngModel)]="subActionText" placeholder="Title">
+                            <mat-autocomplete #auto1="matAutocomplete" (optionSelected)='onSubActionChange($event.option.value)'>
+                                <mat-option *ngFor="let option of filteredSubAction | async" [value]="option.PgdGatewayTitle">
+                                    {{option.PgdGatewayTitle}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <mat-progress-spinner mode="indeterminate" color="blue" [diameter]="50" *ngIf="enableSpinner">
+            </mat-progress-spinner>
+        </div>
+        <div *ngIf="isTemplateShow">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Name" type="text" formControlName='name' [(ngModel)]="nameText">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Email" type="email" formControlName='email' [(ngModel)]="emailText">
+                                <mat-error *ngIf="actionForm.get('email').hasError('email')">Email must be a valid email address
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Phone" type="text" formControlName='phone' [(ngModel)]="phoneText" mask="(000)-000-0000">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <mat-select placeholder="Preferred Method" formControlName='contactMethod' [(ngModel)]="contactMethodText" (selectionChange)="onSelectContactMethod($event)" style="padding: .4375em 0;padding-top:15px;border-bottom: 1px solid #9e9e9e;">
+                                <mat-option *ngFor="let obj of contactMethods" [value]="obj.SysRefId">
+                                    {{obj.SysRefName}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!isNonPOC">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="scheduleArrivalPlaceholder != ''">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" matInput [ngxMatDatetimePicker]="picker" formControlName='scheduleDate' readonly="isScheduleReadOnly" placeholder="{{scheduleArrivalPlaceholder}}">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #picker [defaultTime]="defaultTime" [hideTime]="true" [disabled]="isScheduleReadOnly"></ngx-mat-datetime-picker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="!isSchedule">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" matInput [ngxMatDatetimePicker]="picker1" formControlName='reScheduleDate' readonly="isReadOnly" placeholder="Reschedule Date">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #picker1 [defaultTime]="defaultTime" [hideTime]="true" [disabled]="isReadOnly"></ngx-mat-datetime-picker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="isDeliveryWindow">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" matInput placeholder="Earliest Time" readonly [ngxTimepicker]="earliestPicker">
+                                </mat-form-field>
+                                <ngx-material-timepicker (timeSet)="setEarliestTime($event)" #earliestPicker></ngx-material-timepicker>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Latest Time" aria-label="default time" readonly formControlName="latestTime" [ngxTimepicker]="latestPicker" [(ngModel)]="time">
+                                    <ngx-material-timepicker (timeSet)="setLatestTime($event)" #latestPicker></ngx-material-timepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="isDropDownPanel">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="!isRescheduleCancel">
+                                    <mat-form-field class="example-full-width">
+                                        <input type="text" aria-label="Number" matInput formControlName="seletedCargo" [matAutocomplete]="auto2" [(ngModel)]="cargoText" placeholder="Cargo">
+                                        <mat-autocomplete #auto2="matAutocomplete">
+                                            <mat-option *ngFor='let option of filteredCargo | async' [value]="option.CgoTitle">
+                                                {{option.CgoTitle}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input type="text" aria-label="Number" matInput formControlName="seletedStatus" [matAutocomplete]="auto3" [(ngModel)]="statusText" placeholder="Install Status">
+                                        <mat-autocomplete #auto3="matAutocomplete">
+                                            <mat-option *ngFor='let option of filteredStatus | async' [value]="option.ExStatusDescription">
+                                                {{option.ExStatusDescription}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input type="text" aria-label="Number" matInput formControlName="selectedException" [matAutocomplete]="auto4" [(ngModel)]="exceptionText" placeholder="{{exceptionReasonCodePlaceholder}}">
+                                        <mat-autocomplete #auto4="matAutocomplete">
+                                            <mat-option *ngFor='let option of filteredException | async' [value]="option.JgeTitle">
+                                                {{option.JgeTitle}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="!isRescheduleCancel">
+                                    <mat-form-field class="example-full-width">
+                                        <input type="number" aria-label="Number" matInput formControlName="cargoQuantity" [(ngModel)]="cargoQuantityText" placeholder="Cargo Quantity">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <mat-form-field class="example-full-width">
+                                        <textarea class="materialize-textarea" type="textarea" aria-label="Number" matInput rows="3" cols="60" formControlName="addtionalComment" [(ngModel)]="addtionalCommentText" placeholder="Additional Comment"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <mat-form-field class="example-full-width">
+                                <textarea class="materialize-textarea" type="textarea" aria-label="Number" rows="3" cols="60" matInput formControlName="notes" [(ngModel)]="notesText" placeholder="Notes"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12" style="margin-bottom:30px;">
+                <button style="background-color: #b9b992;border-color: #b9b992;" type="button" (click)="cancelAction()" class="float-right btn btn-danger btn-action btn-cancel-aciton">
+                    Cancel
+                  </button>
+                <button style="background-color: #746969;border-color: #746969;" type="button" (click)="addAction()" class="float-right btn btn-success btn-action btn-add-aciton">
+            Add
+          </button>
+            </div>
+        </div>
+    </div>
+</form>

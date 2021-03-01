@@ -1,0 +1,106 @@
+<!-- Sidebar -->
+<nav id="sidebar" *ngIf="isAuthorize" [ngClass]="toggleSidebar ? '':'active'">
+    <div class="sidebar-header">
+    </div>
+    <ul class="list-unstyled components" id="accordion">
+        <div *ngIf="toggleSidebar">
+            <li *ngIf="hasAccessMenu('m4pljobcard')" class="active main-list">
+                <a href={{routename.m4pljobcard}} aria-expanded="false" data-parent="#accordion" [ngClass]="m4pljobcard ? 'menu-selected' : ''">
+                    <img src="./assets/tracking/images/user-dashboard.png" class="img-responsive mfpl_HeiWid_Navigation" style="text-align: center;height: 30px;
+                        width: 30px;" /> Dashboard
+                </a>
+            </li>
+            <li *ngIf="hasAccessMenu('tracking')" class="active main-list">
+                <a href={{routename.tracking}} aria-expanded="false" data-parent="#accordion" [ngClass]="tracking ? 'menu-selected' : ''">
+                    <img src="./assets/tracking/images/order-tracking.png" class="img-responsive mfpl_HeiWid_Navigation" style="text-align: center;height: 30px;
+                        width: 30px;"/> Order Tracking
+                </a>
+            </li>
+            <li *ngIf="hasAccessMenu('jobreport')" class="active main-list">
+                <a href={{routename.jobreport}} aria-expanded="false" data-parent="#accordion" [ngClass]="tracking ? 'menu-selected' : ''">
+                    <img src="./assets/tracking/images/report.png" class="img-responsive mfpl_HeiWid_Navigation" style="text-align: center;height: 30px;
+                      width: 30px;"/> Report
+                </a>
+            </li>
+        </div>
+
+        <div *ngIf="!toggleSidebar">
+            <li title="Dashboard" *ngIf="hasAccessMenu('m4pljobcard')" (click)="collapseSidebar('m4pljobcard')">
+                <img src="./assets/tracking/images/user-dashboard.png" class="fas fa-columns sidemenu-img collapsedSidenav-img" />
+            </li>
+            <li title="Tracking" *ngIf="hasAccessMenu('tracking')" (click)="collapseSidebar('tracking')">
+                <img src="./assets/tracking/images/order-tracking.png" class="fas fa-columns sidemenu-img collapsedSidenav-img" />
+            </li>
+            <li title="Report" *ngIf="hasAccessMenu('jobreport')" (click)="collapseSidebar('jobreport')">
+                <img src="./assets/tracking/images/report.png" class="fas fa-columns sidemenu-img collapsedSidenav-img" />
+            </li>
+        </div>
+    </ul>
+</nav>
+
+<!-- Header -->
+<header class="main-header">
+    <nav class="navbar navbar-static-top" [ngClass]="toggleSidebar ? 'header':'header-without-sidebar'">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-9 col-7 pull-left">
+                <div *ngIf="isAuthorize">
+                    <a (click)="collapseSidebar('NA')">
+                        <i class="fa fa-bars" aria-hidden="true" style="font-size: 40px; padding-right: 15px;"></i>
+                        <img class="logo" src="./assets/tracking/images/M4plLogo.png" />
+                    </a>
+                </div>
+                <div *ngIf="!isAuthorize">
+                    <img src="./assets/tracking/images/M4plLogo.png" class="img-responsive mfpl_HeiWid_Navigation" style="text-align: center;height: 50px;
+                    width: 160px;" />
+                </div>
+                <!-- <span class="page-title">{{headerNavigation}}</span> -->
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-3 col-5">
+                <div>
+                    <ul id="nav-lists">
+                        <li>
+                            <div class="row" style="margin-right: 0px;">
+                                <div class="col-12" *ngIf="!isAuthorize" style="padding-right: 0px;">
+                                    <a (click)="login()" class="btn-flat" style="margin-top: 0px;">
+                                        <span class="material-icons">lock</span>
+                                        <!-- <span>Log In</span> -->
+                                    </a>
+                                </div>
+                                <div class="col-12" *ngIf="isAuthorize" >
+                                    <a (click)="logout()" >
+                                        <img src="./assets/tracking/images/logout.png" class="img-responsive mfpl_HeiWid_Navigation" style="text-align: center;height: 30px;
+                                        width: 30px;"/>
+                                    </a>
+                                    <div class="name-header">
+                                        <strong style="padding: 5px;font-family: 'Source Sans Pro', sans-serif;">Welcome, {{userName}}</strong>
+                                    </div>
+
+                                </div>
+                                <div id="card1" class="card" style="width: 18rem;">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <a (click)="clickClose()">X</a>
+                                        </li>
+                                        <li class="list-group-item">Profile Name:{{userName}}</li>
+                                        <li class="list-group-item"> <a (click)="logout()">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- Page Content -->
+
+
+
+
+<div *ngIf="isAuthorize" [ngClass]="toggleSidebar ? 'child-view-container':'child-view-container-without-sidebar'">
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="!isAuthorize" [ngClass]="'child-view-container-without-sidebar-UnAuthorize'">
+    <router-outlet></router-outlet>
+</div>

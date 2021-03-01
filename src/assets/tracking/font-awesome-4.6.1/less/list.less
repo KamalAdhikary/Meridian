@@ -1,0 +1,30 @@
+/*Copyright (2016) Meridian Worldwide Transportation Group
+All Rights Reserved Worldwide
+====================================================================================================================================================
+Program Title:                                Meridian 4th Party Logistics(M4PL)
+Programmer:                                   Deepika
+Date Programmed:                              26/5/2016
+Program Name:                                 list
+Purpose:                                      Styles for list
+
+====================================================================================================================================================*/
+
+// List Icons
+// -------------------------
+
+.@{fa-css-prefix}-ul {
+  padding-left: 0;
+  margin-left: @fa-li-width;
+  list-style-type: none;
+  > li { position: relative; }
+}
+.@{fa-css-prefix}-li {
+  position: absolute;
+  left: -@fa-li-width;
+  width: @fa-li-width;
+  top: (2em / 14);
+  text-align: center;
+  &.@{fa-css-prefix}-lg {
+    left: (-@fa-li-width + (4em / 14));
+  }
+}

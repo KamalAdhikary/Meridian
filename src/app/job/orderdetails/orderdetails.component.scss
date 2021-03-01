@@ -1,0 +1,569 @@
+.btn-action {
+    background-color: #4285f4;
+    cursor: pointer;
+    color: #fff;
+    outline: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    padding: 5px 16px;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    font-size: 15px;
+    line-height: 1.42857;
+    padding-left: 20%;
+    margin-top: 7px;
+}
+
+.order-detail-panel {
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.btn-more-detail {
+    cursor: pointer;
+    color: #4285f4;
+    outline: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 2px;
+    margin-left: 0px;
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+.btn-more-detail {
+    cursor: pointer;
+    color: #b9b992;
+    outline: none;
+    font-family:'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 2px;
+    margin-left: 0px;
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+div#demo {
+    padding: 10px;
+}
+
+tr.mat-header-row {
+    height: 40px;
+}
+
+.mat-sort-header-content {
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.panel-boarder {
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.clear {
+    clear: both;
+}
+
+.header {
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+}
+
+.header h1 {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 25px;
+    text-transform: uppercase;
+    color: grey;
+}
+
+.content {
+    width: 60%;
+    // margin: 3% auto 0 auto;
+    background-color: #F5F5F5;
+}
+
+.shipment {
+    width: 100%;
+}
+
+span.line {
+    height: 5px;
+    width: 90px;
+    background-color: rgb(216 212 212);
+    display: block;
+    position: absolute;
+    top: 28%;
+    left: 45%;
+}
+
+.confirm {
+    text-align: center;
+    // width: 16%;
+    position: relative;
+    float: left;
+}
+
+span.line {
+    width: 210px;
+    margin-left: -50px;
+    margin-top: -15px;
+}
+
+.content3 p {
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    float: left;
+}
+
+.imgcircle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(216 212 212);
+    position: relative;
+    margin-left: 35px;
+}
+
+.process {
+    position: relative;
+    width: 16%;
+    text-align: center;
+    float: left;
+}
+
+.quality {
+    position: relative;
+    width: 16%;
+    text-align: center;
+    float: left;
+}
+
+.dispatch {
+    position: relative;
+    width: 16%;
+    text-align: center;
+    float: left;
+}
+
+.delivery {
+    position: relative;
+    width: 16%;
+    text-align: center;
+    float: left;
+    // margin-right: -9%;
+}
+
+.completed {
+    position: relative;
+    width: 16%;
+    text-align: center;
+    float: left;
+    margin-right: -9%;
+}
+
+.footer a,
+a:active {
+    color: grey;
+    text-decoration: none;
+    font-family: 'Tahoma', sans-serif;
+}
+
+.footer a:hover {
+    color: #00c4ff;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.footer {
+    margin-top: 3%;
+    text-align: center;
+    font-weight: 100;
+}
+
+.footer p {
+    color: grey;
+    font-size: 15px;
+    font-family: 'Tahoma', sans-serif;
+    line-height: 25px;
+}
+
+.div-action div {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.row.div-action div a {
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 0px !important;
+    // text-align: center;
+}
+
+.row.div-action {
+    // border-top: 1px solid;
+    // border-right: 1px solid;
+    // border-left: 1px solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0px;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+// table.mat-table.cdk-table.mat-sort.mat-elevation-z8.ng-star-inserted tr td {
+//     border: 0.032em solid #a2a1a1;
+//     padding: 8px;
+// }
+// table.mat-table.cdk-table.mat-sort.mat-elevation-z8.ng-star-inserted tr th {
+//     border: 0.032em solid #8c7d7d;
+//     padding: 8px;
+//     background: #a2a1a1;
+//     font: 14px Verdana, Geneva, sans-serif;
+// }
+.mat-header-cell {
+    color: black;
+    text-align: center;
+    font-family: 12px Verdana, Geneva, sans-serif;
+    font-weight: bold !important;
+}
+
+
+/*---- responsive-design -----*/
+@media only screen and (max-width: 1920px) {
+    span.line {
+        width: 243px;
+        margin-left: -75px;
+        margin-top: -13px;
+        left: 49%;
+        height: 4px;
+    }
+    // confirm {
+    //     text-align: center;
+    //     // width: 16%;
+    //     position: relative;
+    //     float: left;
+    // }
+}
+
+@media only screen and (max-width: 1600px) {
+    span.line {
+        width: 163px;
+        margin-left: -37px;
+        margin-top: -13px;
+        left: 49%;
+        height: 4px;
+    }
+    // confirm {
+    //     text-align: center;
+    //     // width: 16%;
+    //     position: relative;
+    //     float: left;
+    // }
+}
+
+@media only screen and (max-width: 1024px) {
+    span.line {
+        margin-left: -11px;
+        width: 110px;
+        top: 23%;
+    }
+    confirm {
+        width: 7%;
+    }
+}
+
+@media only screen and (max-width: 823px) {
+    span.line {
+        margin-top: -11px;
+        margin-left: -5px;
+        width: 97px;
+    }
+    .content3 p {
+        font-size: 10px;
+    }
+    confirm {
+        width: 7%;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    span.line {
+        margin-left: -3px; 
+        /* width: 125px; */
+        top: 27%;
+    }
+    .content3 p {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width:736px) {
+    span.line {
+        margin-left: -4px;
+        width: 90px;
+        margin-top: -13px;
+        top: 35%;
+    }
+    .content3 p {
+        font-size: 7px;
+    }
+}
+
+@media only screen and (max-width:731px) {
+    span.line {
+        margin-left: -4px;
+        width: 90px;
+        margin-top: -13px;
+        top: 35%;
+    }
+    .content3 p {
+        font-size: 7px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .btn-more-detail {
+        margin-top: -4px;
+    }
+    .mat-header-cell,
+    .mat-cell {
+        font-size: 13px;
+    }
+    .mat-header-cell {
+        color: black;
+        font-weight: 600;
+        text-align: center;
+    }
+    .imgcircle {
+        position: absolute;
+    }
+    .shipment div.confirm,
+    .shipment div.process,
+    .shipment div.quality,
+    .shipment div.dispatch,
+    .shipment div.delivery,
+    .shipment div.completed,
+    .shipment div.clear {
+        width: 80%;
+    }
+    span.line {
+        width: 5px;
+        height: 52px;
+        margin-left: -122px;
+        margin-top: 0px;
+        top: 23%;
+    }
+    .content3 p {
+        margin-top: 0px;
+        font-size: 12px;
+        font-weight: 600;
+        float: left;
+        margin-left: 75px;
+    }
+    .oreder-header {
+        font-size: 13px !important;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    span.line {
+        margin-left: -168px;
+        top: 10%;
+        height: 44px;
+    }
+}
+
+@media only screen and (max-width: 568px) {
+    span.line {
+        margin-left: -128px;
+        top: 10%;
+        height: 44px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    span.line {
+        margin-left: -115px;
+        width: 5px;
+        height: 45px;
+        margin-top: 0px;
+        top: 5%;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    span.line {
+        margin-left: -79px;
+        top: 10%;
+        height: 44px;
+    }
+}
+
+@media only screen and (max-width:411px) {
+    span.line {
+        margin-left: -65px;
+        width: 5px;
+        top: 10%;
+        height: 35px;
+    }
+    .oreder-header {
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (max-width:375px) {
+    span.line {
+        margin-left: -85px;
+        top: 5%;
+        height: 45px;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    span.line {
+        top: 5%;
+        height: 50px;
+        margin-left: -59px;
+    }
+    .oreder-header {
+        font-size: 11px !important;
+    }
+    .content {
+       //margin-top: 0px;
+        font-size: 15px;
+        font-weight: 600;
+        float: left;
+        margin-left: 0px;
+    }
+}
+
+@media only screen and (max-width:320px) {
+    span.line {
+        margin-left: -43px;
+        top: 19%;
+        height: 38px;
+    }
+    .oreder-header {
+        font-size: 9px !important;
+    }
+    .content3 p {
+        font-size: 10px;
+        margin-left: 63px;
+    }
+}
+
+@media only screen and (max-width:280px) {
+    span.line {
+        margin-left: -27px;
+        height: 34px;
+        top: 19%;
+    }
+    .oreder-header {
+        font-size: 8px !important;
+    }
+    .content3 p {
+        font-size: 8px;
+        margin-left: 53px;
+    }
+}
+
+.mat-column-Id {
+    flex: 0 0 25% !important;
+    min-width: 130px !important;
+}
+
+.mat-column-CgoPartNumCode {
+    flex: 0 0 25% !important;
+    min-width: 160px !important;
+}
+
+.mat-column-CgoSerialNumber {
+    flex: 0 0 25% !important;
+    min-width: 160px !important;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+    height: 30px;
+}
+
+.mat-tab-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.mat-column-PrcChargeCode {
+    flex: 0 0 25% !important;
+    min-width: 160px !important;
+}
+
+.mat-column-PrcTitle {
+    flex: 0 0 25% !important;
+    min-width: 160px !important;
+}
+
+.mat-column-CstChargeCode {
+    flex: 0 0 25% !important;
+    min-width: 160px !important;
+}
+
+.mat-column-CstTitle {
+    flex: 0 0 25% !important;
+    min-width: 160px !important;
+}
+
+.mat-column-EdtCode {
+    flex: 0 0 25% !important;
+    min-width: 140px !important;
+}
+
+.mat-column-EdtTitle {
+    flex: 0 0 25% !important;
+    min-width: 140px !important;
+}
+
+.mat-column-TransactionDate {
+    flex: 0 0 25% !important;
+    min-width: 190px !important;
+}
+
+.mat-column-EdtTypeIdName {
+    flex: 0 0 25% !important;
+    min-width: 140px !important;
+}
+
+.textarea-container {
+    position: relative;
+  }
+  .textarea-container textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin-bottom: 4px;
+  }
+  .textarea-container button {
+   //position: absolute;
+    top: 0;
+    right: 0;
+    float:right;
+  }
+
+//   button[disabled]{
+//     background-color:#b9b992
+// }
+
+button:not(:disabled) {
+    background-color:#b9b992
+}

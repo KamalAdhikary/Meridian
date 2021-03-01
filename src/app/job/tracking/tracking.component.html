@@ -1,0 +1,66 @@
+<div>
+    <div style="margin-right: 0px;margin-left: 0px;margin-top: 10px;"></div>
+    <div (keydown)="keyDownFunction($event)" style="padding-top: 5px;">
+        <div class="row page-title">
+            <div class="col-lg-10 col-md-9 col-sm-10 col-xs-10" style="text-align: center;margin-top:5px">
+                <!-- <img style="width: 70px;background: white; margin-top: 5px;" src="/assets/tracking/images/Order_logo.png"> -->
+                <p style="padding-top: 15px;font-weight: bold;padding-bottom: 0px;color:#007100;text-align: center;">ORDER TRACKING</p>
+            </div>
+        </div>
+        <form [formGroup]="searchFilter">
+            <div class="form-group row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="row input-field tracking-number">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-9">
+                            <input class="text-search" placeholder="Search orders..." type="text" formControlName='ctrlSearch'>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2" style="padding-right: 0px; padding-left: 0px;">
+                            <button type="button" (click)="search()" class="btn-search" aria-label="Clear">Search</button>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-1 customerInfoIcon tooltip-box font-normal">
+                            <span class="info_icon infoToolIcon " #tooltip="matTooltip" (click)="tooltip.toggle()" matTooltip="{{tooltipArr.join('\n')}}" matTooltipPosition="above" aria-label="Button that shows a tooltip"> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div [style.display]="hasRecord">
+            <table *ngIf="hasRecord" mat-table [dataSource]="dataSource " class="mat-elevation-z8 " matSort matSortStart="desc ">
+                <ng-container matColumnDef="CustomerSalesOrder">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Contract# </th>
+                    <td mat-cell *matCellDef="let element ">
+                        <span class="btn-link " style="cursor: pointer;" (click)="redirectToDetails(element.Id)">
+                    <!-- [routerLink]="['/order/orderdetails', element.Id]" -->
+                    {{ element.CustomerSalesOrder }}
+                </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="GatewayStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+                    <td mat-cell *matCellDef="let element "> {{element.GatewayStatus}} </td>
+                </ng-container>
+                <ng-container matColumnDef="DeliveryDatePlanned">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Date</th>
+                    <td mat-cell *matCellDef="let element ">
+                        {{element.DeliveryDatePlanned | date: 'MM/dd/yyyy'}}
+                </ng-container>
+                <ng-container matColumnDef="ArrivalDatePlanned">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date </th>
+                    <td mat-cell *matCellDef="let element ">
+                        {{element.ArrivalDatePlanned | date: 'MM/dd/yyyy'}}
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+            </table>
+            <div *ngIf="isM4PLUser">
+                <mat-paginator [pageSize]="5 " [pageSizeOptions]="[5, 10, 15, 20] " showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+        <!-- showFirstLastButtons -->
+
+        <div class="center">
+            <mat-progress-spinner mode="indeterminate" color="blue" [diameter]="50" *ngIf="enableSpinner">
+            </mat-progress-spinner>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+// Screen Readers
+// -------------------------
+/*//Copyright (2016) Meridian Worldwide Transportation Group
+//All Rights Reserved Worldwide
+//====================================================================================================================================================
+//Program Title:                                Meridian 4th Party Logistics(M4PL)
+//Programmer:                                   Ramkumar
+//Date Programmed:                              21/8/2015
+//Program Name:                                 Screen-Readers.scss
+//Purpose:                                      Screen Readers
+//====================================================================================================================================================*/
+
+.sr-only { @include sr-only(); }
+.sr-only-focusable { @include sr-only-focusable(); }

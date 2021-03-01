@@ -1,0 +1,714 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0px;" *ngIf="!isJobCard">
+        <span class="material-icons" (click)="redirectToTracking()" style="padding-left: 15px;padding-top: 0px;font-size: 30px;cursor: pointer;font-weight: bold;">arrow_back</span>
+    </div>
+</div>
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header style="margin-bottom: 15px;background-color: lightgray;">
+        <b>Order# {{orderDetails?.CustomerSalesOrder}}</b>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+        <div style="background:#fff;width:100%">
+            <div class="content3">
+                <div class="shipment">
+                    <div class="confirm" *ngIf="isElectroluxCustomer">
+                        <div class="imgcircle" [style.background-color]="isProduction ? disPlayGreen : disPlayRed">
+                        </div>
+                        <span class="line" [style.background-color]="isProduction ? disPlayGreen : disPlayRed"></span>
+                        <p>In Production
+                            <span *ngIf="isProduction">({{inProductionACD | date: 'MM/dd/yyyy'}})</span>
+                        </p>
+
+                    </div>
+                    <div class="process">
+                        <div class="imgcircle" [style.background-color]="isTransit ? disPlayGreen : disPlayRed">
+                        </div>
+                        <span class="line" [style.background-color]="isTransit ? disPlayGreen : disPlayRed"></span>
+                        <p>In Transit
+                            <span *ngIf="isTransit">({{inTransitACD | date: 'MM/dd/yyyy'}})</span>
+                        </p>
+                    </div>
+                    <div class="quality">
+                        <div class="imgcircle" [style.background-color]="isOnHand ? disPlayGreen : disPlayRed">
+                        </div>
+                        <span class="line" [style.background-color]="isOnHand ? disPlayGreen : disPlayRed"></span>
+                        <p>On Hand
+                            <span *ngIf="isOnHand">({{onHandACD | date: 'MM/dd/yyyy'}})</span>
+                        </p>
+                    </div>
+                    <div class="dispatch">
+                        <div class="imgcircle" [style.background-color]="isOnTruck ? disPlayGreen : disPlayRed">
+                        </div>
+                        <span class="line" [style.background-color]="isOnTruck ? disPlayGreen : disPlayRed"></span>
+                        <p>On Truck
+                            <span *ngIf="isOnTruck">({{onTruckACD | date: 'MM/dd/yyyy'}})</span>
+                        </p>
+                    </div>
+                    <div class="delivery">
+                        <div class="imgcircle" [style.background-color]="isPodUpload ? disPlayGreen : disPlayRed">
+                        </div>
+                        <span class="line" [style.background-color]="isPodUpload ? disPlayGreen : disPlayRed"></span>
+                        <p>POD Upload
+                            <span *ngIf="isPodUpload">({{podUploadACD | date: 'MM/dd/yyyy'}})</span>
+                        </p>
+                    </div>
+                    <div class="completed">
+                        <div class="imgcircle" [style.background-color]="isCompleted ? disPlayGreen : disPlayRed">
+                        </div>
+                        <p>Completed
+                            <span *ngIf="isCompleted">({{completedACD | date: 'MM/dd/yyyy'}})</span>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </mat-panel-description>
+</mat-expansion-panel>
+<hr />
+<mat-expansion-panel [expanded]="false">
+    <mat-expansion-panel-header style="margin-bottom:15px;">
+        <b>Shipping Information</b>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+        <div class="panel panel-default order-detail-panel panel-boarder col-12">
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+                        <ul>
+                            <li class="pb-1">
+                                <span><strong>Manifest# :</strong>{{orderDetails?.ManifestNo}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>BOL :</strong>{{orderDetails?.BOL}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Status :</strong> {{orderDetails?.GatewayStatus}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Delivery Date :</strong>{{orderDetails?.DeliveryDatePlanned | date: 'MM/dd/yyyy'}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Arrival Date:</strong>{{orderDetails?.ArrivalDatePlanned | date: 'MM/dd/yyyy'}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Order Date :</strong>{{orderDetails?.OrderDate | date: 'MM/dd/yyyy'}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Shipment Date :</strong> {{orderDetails?.ShipmentDate | date: 'MM/dd/yyyy'}} </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+                        <ul>
+                            <li class="pb-1">
+                                <span><strong>Estimate Delivery Date :</strong> {{orderDetails?.JobDeliveryDateTimeBaseline | date: 'MM/dd/yyyy'}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Actual Delivery Date :</strong> {{orderDetails?.JobDeliveryDateTimeActual | date: 'MM/dd/yyyy'}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Total Weight :</strong>{{orderDetails?.JobTotalWeight}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Weight Unit :</strong>{{orderDetails?.JobWeightUnitTypeIdName}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Total Cubes :</strong> {{orderDetails?.JobTotalCubes}}</span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Cubes Unit :</strong>{{orderDetails?.JobCubesUnitTypeIdName}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Qty Ordered:</strong>{{orderDetails?.JobQtyOrdered}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+                        <ul>
+                            <li class="pb-1">
+                                <span><strong>Qty Actual:</strong>{{orderDetails?.JobQtyActual}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Qty Unit :</strong> {{orderDetails?.JobQtyUnitTypeIdName}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Parts Ordered :</strong> {{orderDetails?.JobPartsOrdered}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Parts Actual :</strong> {{orderDetails?.JobPartsActual }} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Service Order :</strong> {{orderDetails?.JobServiceOrder}} </span>
+                            </li>
+                            <li class="pb-1">
+                                <span><strong>Service Actual :</strong> {{orderDetails?.JobServiceActual}} </span>
+                            </li>
+                            <!-- <li class="pb-1">
+                                <span><strong>Driver Alert :</strong> {{orderDetails?.JobDriverAlert }} </span>
+                                <span>
+                                    <div class="textarea-container">
+                                        <textarea class="form-control" [(ngModel)]='driverAlert' aria-label="With textarea"></textarea>
+                                        <button  class="pr-2" [disabled]="!(driverAlert && driverAlert.trim().length>0)">
+                                            <a href=""></a>Save</button>
+                                      </div>
+                                </span>
+
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                        <ul>
+                            <li class="pb-1">
+                                <span><strong>Driver Alert :</strong> </span>
+                                <span>
+                                    <div class="textarea-container">
+                                        <textarea class="form-control" [(ngModel)]='driverAlert' aria-label="With textarea"></textarea>
+                                        <button (click)="driverAlertUpdate()"  class="pr-2" [disabled]="!(driverAlert && driverAlert.trim().length>0)">
+                                            <a href=""></a>Save</button>
+                                      </div>
+                                </span>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </mat-panel-description>
+</mat-expansion-panel>
+<hr />
+<mat-expansion-panel [expanded]="false">
+    <mat-expansion-panel-header style="margin-bottom: 15px;">
+        <b> Job Location </b>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+        <div class="panel panel-default order-detail-panel panel-boarder col-12">
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+                        <h2>Origin</h2>
+                        <h4 class="mb-0" style="font-weight: bold;">Contact:</h4>
+                        <ul>
+                            <li *ngIf="orderDetails?.JobOriginSitePOC != undefined && orderDetails?.JobOriginSitePOC != null">
+                                <span>{{orderDetails?.JobOriginSitePOC }}</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-mobile pr-2" aria-hidden="true"></i></span>
+                                <span>{{orderDetails?.JobOriginSitePOCPhone}}</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-envelope pr-2" aria-hidden="true"></i></span>
+                                <span>{{orderDetails?.JobOriginSitePOCEmail}}</span>
+                            </li>
+                        </ul>
+                        <h4 class="mb-0" style="font-weight: bold;">Address:</h4>
+                        <ul>
+                            <li>
+                                <span>{{orderDetails?.JobOriginStreetAddress}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobOriginStreetAddress2 != '' && orderDetails?.JobOriginStreetAddress2 != null  && orderDetails?.JobOriginStreetAddress2 != undefined">
+                                <span>{{orderDetails?.JobOriginStreetAddress2}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobOriginStreetAddress3 != '' && orderDetails?.JobOriginStreetAddress3 != null  && orderDetails?.JobOriginStreetAddress3 != undefined">
+                                <span>{{orderDetails?.JobOriginStreetAddress3}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobOriginStreetAddress4 != '' && orderDetails?.JobOriginStreetAddress4 != null  && orderDetails?.JobOriginStreetAddress4 != undefined">
+                                <span>{{orderDetails?.JobOriginStreetAddress4}}</span>
+                            </li>
+                            <li>
+                                <span>{{orderDetails?.JobOriginCity}}</span>
+                                <span>, {{orderDetails?.JobOriginState}}</span>
+                                <span> {{orderDetails?.JobOriginPostalCode}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+                        <h2>Destination</h2>
+                        <h4 class="mb-0" style="font-weight: bold;">Contact:</h4>
+                        <ul>
+                            <li>
+                                <span>{{orderDetails?.JobDeliverySitePOC}}</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-mobile pr-2" aria-hidden="true"></i></span>
+                                <span>{{orderDetails?.JobDeliverySitePOCPhone}}</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-envelope pr-2" aria-hidden="true"></i></span>
+                                <span>{{orderDetails?.JobDeliverySitePOCEmail}}</span>
+                            </li>
+                        </ul>
+                        <h4 class="mb-0" style="font-weight: bold;">Address:</h4>
+                        <ul>
+                            <li>
+                                <span>{{orderDetails?.JobDeliveryStreetAddress}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobDeliveryStreetAddress2 != '' && orderDetails?.JobDeliveryStreetAddress2 != null  && orderDetails?.JobDeliveryStreetAddress2 != undefined">
+                                <span>{{orderDetails?.JobDeliveryStreetAddress2}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobDeliveryStreetAddress3 != '' && orderDetails?.JobDeliveryStreetAddress3 != null  && orderDetails?.JobDeliveryStreetAddress3 != undefined">
+                                <span>{{orderDetails?.JobDeliveryStreetAddress3}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobDeliveryStreetAddress4 != '' && orderDetails?.JobDeliveryStreetAddress4 != null  && orderDetails?.JobDeliveryStreetAddress4 != undefined">
+                                <span>{{orderDetails?.JobDeliveryStreetAddress4}}</span>
+                            </li>
+                            <li>
+                                <span>{{orderDetails?.JobDeliveryCity}}</span>
+                                <span>, {{orderDetails?.JobDeliveryState}}</span>
+                                <span> {{orderDetails?.JobDeliveryPostalCode}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
+                        <h2>Seller</h2>
+                        <h4 class="mb-0" style="font-weight: bold;">Contact:</h4>
+                        <ul>
+                            <li>
+                                <span>{{orderDetails?.JobSellerSitePOC}}</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-mobile pr-2" aria-hidden="true"></i></span>
+                                <span>{{orderDetails?.JobSellerSitePOCPhone}}</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-envelope pr-2" aria-hidden="true"></i></span>
+                                <span>{{orderDetails?.JobSellerSitePOCEmail}}</span>
+                            </li>
+                        </ul>
+                        <h4 class="mb-0" style="font-weight: bold;">Address:</h4>
+                        <ul>
+                            <li>
+                                <span>{{orderDetails?.JobSellerStreetAddress}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobSellerStreetAddress2 != '' && orderDetails?.JobSellerStreetAddress2 != null  && orderDetails?.JobSellerStreetAddress2 != undefined">
+                                <span>{{orderDetails?.JobSellerStreetAddress2}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobSellerStreetAddress3 != '' && orderDetails?.JobSellerStreetAddress3 != null  && orderDetails?.JobSellerStreetAddress3 != undefined">
+                                <span>{{orderDetails?.JobSellerStreetAddress3}}</span>
+                            </li>
+                            <li *ngIf="orderDetails?.JobSellerStreetAddress4 != '' && orderDetails?.JobSellerStreetAddress4 != null  && orderDetails?.JobSellerStreetAddress4 != undefined">
+                                <span>{{orderDetails?.JobSellerStreetAddress4}}</span>
+                            </li>
+                            <li>
+                                <span>{{orderDetails?.JobSellerCity}}</span>
+                                <span>, {{orderDetails?.JobSellerState}}</span>
+                                <span> {{orderDetails?.JobSellerPostalCode}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-panel-description>
+</mat-expansion-panel>
+<hr />
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header style="margin-bottom: 15px;">
+        <b>Tracking, Cargo, Charges, Document and EDI/xCBL</b>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+        <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
+            <mat-tab label="Tracking" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Tracking >= getType('ReadOnly')">
+                <div style="margin-top: 15px;width: 100%;">
+                    <div class="row div-action col-12" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Tracking >= getType('AddEdit')">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6 col-6">
+                            <a href="javascript:void(0)" (click)="addAction()" style="margin-top: 15px;" type="button" class="btn-more-detail" aria-label="Clear">
+                                <span class="material-icons" style="display: inline-flex;vertical-align: middle;">add_circle</span> Add Action</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6 col-6" style="text-align:right;">
+                            <a href="javascript:void(0)" (click)="addGateway()" style="margin-top: 15px;" type="button" class="btn-more-detail" aria-label="Clear">
+                                <span class="material-icons" style="display: inline-flex;vertical-align: middle;">add_circle</span> Add Gateway</a>
+                        </div>
+                    </div>
+                    <table *ngIf="hasRecord" mat-table [dataSource]="dataSource " class="mat-elevation-z8" style="width: 100%;" matSort matSortStart="desc ">
+                        <ng-container matColumnDef="GatewayCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{ element.GatewayCode }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="GatewayTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{ element.GatewayTitle }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="GateWayName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
+                            <td mat-cell *matCellDef="let element "> {{element.GateWayName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ACD">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.ACD | date: 'MM/dd/yyyy hh:mm a'}}
+                        </ng-container>
+                        <ng-container matColumnDef="View">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                            <td mat-cell *matCellDef="let element ">
+                                <span class="btn-link " style="cursor: pointer;" (click)="EditGateway(element.Id)">
+                                  View
+                                </span>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+                    </table>
+                </div>
+            </mat-tab>
+            <mat-tab label="Cargo" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Cargo >= getType('ReadOnly')">
+                <div>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <!-- <ng-container matColumnDef="Id" *ngIf="activeUserObj.IsSysAdmin">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+                            <td mat-cell *matCellDef="let element "> {{element.Id}} </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="CgoLineItem">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoLineItem}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="CgoPartNumCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Part Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoPartNumCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoSerialNumber">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Serial Number</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoSerialNumber}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoTitle}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="StatusId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.StatusId == 1 ? 'Active' : element.StatusId == 2 ? 'Inactive' : 'Archive'}}
+                            </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="CgoWeight">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoWeight}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoCubes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cubes</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoCubes}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyExpected">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Loaded</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyExpected}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyOnHand">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty OnHand</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyOnHand}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyDamaged">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Damaged</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyDamaged}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyOnHold">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Delivered</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyOnHold}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyOrdered">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Ordered</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyOrdered}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyShortOver">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Short</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyShortOver}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyOver">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Over</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyOver}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoLongitude">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Longitude</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.CgoLongitude }}
+                        </ng-container>
+                        <ng-container matColumnDef="CgoLatitude">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Latitude</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.CgoLatitude }}
+                        </ng-container>
+                        <ng-container matColumnDef="CgoMasterCartonLabel">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Master Carton Label</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.CgoMasterCartonLabel }}
+                        </ng-container>
+                        <ng-container matColumnDef="CgoPackagingTypeIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Packaging Type</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.CgoPackagingTypeIdName}}
+                        </ng-container>
+                        <ng-container matColumnDef="CgoWeightUnitsIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight Unit</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoWeightUnitsIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoVolumeUnitsIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Volume Unit</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoVolumeUnitsIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoQtyUnitsIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty Unit</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CgoQtyUnitsIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CgoDateLastScan">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Scaned</th>
+                            <td mat-cell *matCellDef="let element ">
+                                <mat-checkbox [disabled]="true" [(ngModel)]="element.CgoDateLastScan"></mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedCargoColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedCargoColumns; "></tr>
+                    </table>
+                    <mat-paginator [length]="TotalCount" [pageSize]="5" [pageSizeOptions]="[5,10,30,50,100] " showFirstLastButtons (page)="PageCargoEvents($event)"></mat-paginator>
+                </div>
+            </mat-tab>
+            <mat-tab label="Price" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Price >= getType('ReadOnly')">
+                <div>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <!-- <ng-container matColumnDef="Id" *ngIf="activeUserObj.IsSysAdmin">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+                            <td mat-cell *matCellDef="let element "> {{element.Id}} </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="PrcLineItem">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcLineItem}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="PrcChargeID">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Charge ID</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcChargeID}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PrcChargeCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Charge Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcChargeCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PrcTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcTitle}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ChargeTypeIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Charge Type</th>
+                            <td mat-cell *matCellDef="let element "> {{element.ChargeTypeIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PrcQuantity">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcQuantity}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PrcUnitIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcUnitIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PrcRate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcRate}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PrcComments">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments</th>
+                            <td mat-cell *matCellDef="let element "> {{element.PrcComments}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="StatusId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.StatusId == 1 ? 'Active' : element.StatusId == 2 ? 'Inactive' : 'Archive'}}
+                            </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="PrcElectronicBilling">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Electronic Billing</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-checkbox [disabled]="true" [(ngModel)]="element.PrcElectronicBilling"></mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="IsProblem">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Problem</th>
+                            <td mat-cell *matCellDef="let element ">
+                                <mat-checkbox [disabled]="true" [(ngModel)]="element.IsProblem"></mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedPriceColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedPriceColumns; "></tr>
+                    </table>
+                    <mat-paginator [length]="TotalCount" [pageSize]="5" [pageSizeOptions]="[5,10,30,50,100] " showFirstLastButtons (page)="PagePriceEvents($event)"></mat-paginator>
+                </div>
+            </mat-tab>
+            <mat-tab label="Cost" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Cost >= getType('ReadOnly')">
+                <div>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <!-- <ng-container matColumnDef="Id" *ngIf="activeUserObj.IsSysAdmin">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+                            <td mat-cell *matCellDef="let element "> {{element.Id}} </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="CstLineItem">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstLineItem}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="CstChargeID">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Charge ID</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstChargeID}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CstChargeCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Charge Code</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstChargeCode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CstTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstTitle}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ChargeTypeIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Charge Type</th>
+                            <td mat-cell *matCellDef="let element "> {{element.ChargeTypeIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CstQuantity">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstQuantity}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CstUnitIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstUnitIdName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CstRate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstRate}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="CstComments">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments</th>
+                            <td mat-cell *matCellDef="let element "> {{element.CstComments}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="StatusId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let element ">
+                                {{element.StatusId == 1 ? 'Active' : element.StatusId == 2 ? 'Inactive' : 'Archive'}}
+                            </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="CstElectronicBilling">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Electronic Billing</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-checkbox [disabled]="true" [(ngModel)]="element.CstElectronicBilling"></mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="IsProblem">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Problem</th>
+                            <td mat-cell *matCellDef="let element ">
+                                <mat-checkbox [disabled]="true" [(ngModel)]="element.IsProblem"></mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedCostColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedCostColumns; "></tr>
+                    </table>
+                    <mat-paginator [length]="TotalCount" [pageSize]="5" [pageSizeOptions]="[5,10,30,50,100] " showFirstLastButtons (page)="PageCostEvents($event)"></mat-paginator>
+                </div>
+            </mat-tab>
+            <mat-tab label="Document" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Document >= getType('ReadOnly')">
+                <div style="margin-top: 15px;">
+                    <div class="row div-action" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Document >= getType('AddEdit')">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6" style="text-align:right;">
+                            <a href="javascript:void(0)" (click)="fileUpload()" style="margin-top: 5px;" type="button" class="btn-more-detail" aria-label="Clear">
+                                <img id="imgUploadDocument" src="./assets/tracking/images/Upload_File.png" style="display: inline-flex;vertical-align: right;" height="45px" width="45px" />
+                            </a>
+                        </div>
+                    </div>
+                    <div [style.display]="hasDocRecord" *ngIf="isM4PLUser">
+                        <table mat-table [dataSource]="docDataSource" class="mat-elevation-z8" style="width: 100%;" matSort matSortStart="desc ">
+                            <ng-container matColumnDef="JdrTitle">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Title</th>
+                                <td mat-cell *matCellDef="let element "> {{element.DisplayDocName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="DocTypeIdName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                                <td mat-cell *matCellDef="let element ">
+                                    {{element.DocTypeIdName}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="view">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                                <td mat-cell *matCellDef="let element ">
+                                    <span class="material-icons" style="cursor: pointer;display: inline-flex;vertical-align: middle;" (click)="downLoad(element.Id,element.JdrCode)">
+                          save_alt
+                  </span>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedDocColumns sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedDocColumns;"></tr>
+                        </table>
+                    </div>
+                    <!-- <mat-paginator [pageSize]="5 " [pageSizeOptions]="[5, 10, 15, 20] " showFirstLastButtons></mat-paginator> -->
+                </div>
+            </mat-tab>
+            <mat-tab label="EDI/xCBL" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Cost >= getType('ReadOnly')">
+                <div>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort matSortStart="desc ">
+                        <ng-container matColumnDef="EdtCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+                            <td mat-cell *matCellDef="let element ">
+                                <div style="padding: 8px 8px 8px 0;">
+                                    {{element.EdtCode}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="EdtTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                            <td mat-cell *matCellDef="let element ">
+                                <div style="padding: 8px 8px 8px 0;text-overflow: ellipsis;overflow: hidden;white-space: wrap;width: 200px;">
+                                    {{element.EdtTitle}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="EdtData">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+                            <td mat-cell *matCellDef="let element " [matTooltip]="element.EdtData" [matTooltipPosition]="'below'">
+                                <div style="padding: 8px 8px 8px 0;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;width: 350px;">
+                                    {{element.EdtData}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="EdtTypeIdName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                            <td mat-cell *matCellDef="let element ">
+                                <div style="padding: 8px 8px 8px 0;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;width: 100px;">
+                                    {{element.EdtTypeIdName}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="TransactionDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Date</th>
+                            <td mat-cell *matCellDef="let element ">
+                                <div style="padding: 8px 8px 8px 0;">
+                                    {{element.TransactionDate | date: 'MM/dd/yyyy hh:mm a'}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedEDIXcblColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedEDIXcblColumns; "></tr>
+                    </table>
+                    <mat-paginator [length]="TotalCount" [pageSize]="5" [pageSizeOptions]="[5,10,30,50,100] " showFirstLastButtons (page)="PageXCBLEvents($event)"></mat-paginator>
+                </div>
+            </mat-tab>
+            <mat-tab label="Notes" *ngIf="isM4PLUser && isJobPermission && PermissionModel.Note >= getType('ReadOnly')">
+            <div class="row">
+                <div class="container">
+                    <textarea rows="5" style="width: 80%;
+                    height: 100%;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding: 5%;" [(ngModel)]="jobNotes" >                   
+                </textarea>
+                </div>
+            </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-panel-description>
+</mat-expansion-panel>
+<div class="center">
+    <mat-progress-spinner mode="indeterminate" color="blue" [diameter]="50" *ngIf="enableSpinner">
+    </mat-progress-spinner>
+</div>

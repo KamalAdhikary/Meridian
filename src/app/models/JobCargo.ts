@@ -1,0 +1,38 @@
+export class JobCargo {
+  Id: number;
+  JobID: number;
+  CgoLineItem: number;
+  CgoPartNumCode: string;
+  CgoSerialNumber: string;
+  CgoTitle: string;
+  CgoSeverityCode: string;
+  StatusId: number;
+  CgoReasonCodeOSD: string;
+  CgoReasonCodeHold: string;
+  CgoWeight: number;
+  CgoLength: number;
+  CgoWidth: number;
+  CgoHeight: number;
+  CgoCubes: number;
+  CgoStatusFrom: string;
+  CgoQtyExpected: number;
+  CgoQtyOnHand: number;
+  CgoQtyDamaged: number;
+  CgoQtyOnHold: number;
+  CgoQtyOrdered: number;
+  CgoQtyShortOver: number;
+  CgoQtyOver: number;
+  CgoLongitude: number;
+  CgoLatitude: number;
+  CgoMasterCartonLabel: number;
+  CgoPackagingTypeId: number;
+  CgoPackagingTypeIdName: string;
+  CgoWeightUnitsId: number;
+  CgoWeightUnitsIdName: string;
+  CgoVolumeUnitsId: number;
+  CgoVolumeUnitsIdName:string;
+  CgoQtyUnitsId: number;
+  CgoQtyUnitsIdName: string;
+  CgoComment: string;
+  CgoDateLastScan: boolean;
+}
